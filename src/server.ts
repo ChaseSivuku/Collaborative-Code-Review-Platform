@@ -5,6 +5,9 @@ import { initDatabase } from './db/migrations';
 import { errorHandler, notFoundHandler } from './middleware/error-handler';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import projectRoutes from './routes/projectRoutes';
+import submissionRoutes from './routes/submissionRoutes';
+import commentRoutes from './routes/commentRoutes';
 
 dotenv.config();
 
@@ -21,6 +24,9 @@ app.get('/health', (req: Request, res: Response) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/submissions', submissionRoutes);
+app.use('/api', commentRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

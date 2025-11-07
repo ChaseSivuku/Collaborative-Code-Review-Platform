@@ -135,7 +135,7 @@ src/
 - ✅ **Sprint 1**: Project Setup & Foundations
 - ⏳ **Sprint 2**: Authentication & Users (In Progress)
 - ⏳ **Sprint 3**: Projects
-- ⏳ **Sprint 4**: Code Submissions
+- ✅ **Sprint 4**: Code Submissions
 - ⏳ **Sprint 5**: Comments
 - ⏳ **Sprint 6**: Review Workflow
 - ⏳ **Sprint 7**: Notifications & Stats
