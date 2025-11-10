@@ -2,6 +2,7 @@ import { Response, NextFunction } from 'express';
 import pool from '../config/database';
 import { AppError } from '../middleware/error-handler';
 import { AuthRequest } from '../middleware/auth';
+import { getWebSocketManager } from '../websocket/server';
 
 export const approveSubmission = async (
   req: AuthRequest,
@@ -84,6 +85,16 @@ export const approveSubmission = async (
       );
 
       await pool.query('COMMIT');
+
+      const notificationResult = await pool.query(
+        'SELECT * FROM notifications WHERE user_id = $1 AND related_entity_id = $2 ORDER BY created_at DESC LIMIT 1',
+        [submission.submitter_id, submissionId]
+      );
+
+      const wsManager = getWebSocketManager();
+      if (wsManager && notificationResult.rows.length > 0) {
+        wsManager.notifyUser(submission.submitter_id, notificationResult.rows[0]);
+      }
 
       const updatedSubmission = await pool.query(
         'SELECT id, project_id, submitter_id, title, status, created_at, updated_at FROM submissions WHERE id = $1',
@@ -187,6 +198,16 @@ export const requestChanges = async (
       );
 
       await pool.query('COMMIT');
+
+      const notificationResult = await pool.query(
+        'SELECT * FROM notifications WHERE user_id = $1 AND related_entity_id = $2 ORDER BY created_at DESC LIMIT 1',
+        [submission.submitter_id, submissionId]
+      );
+
+      const wsManager = getWebSocketManager();
+      if (wsManager && notificationResult.rows.length > 0) {
+        wsManager.notifyUser(submission.submitter_id, notificationResult.rows[0]);
+      }
 
       const updatedSubmission = await pool.query(
         'SELECT id, project_id, submitter_id, title, status, created_at, updated_at FROM submissions WHERE id = $1',

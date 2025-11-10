@@ -133,13 +133,21 @@ src/
 ## Development Status
 
 - ✅ **Sprint 1**: Project Setup & Foundations
-- ⏳ **Sprint 2**: Authentication & Users (In Progress)
-- ⏳ **Sprint 3**: Projects
+- ✅ **Sprint 2**: Authentication & Users
+- ✅ **Sprint 3**: Projects
 - ✅ **Sprint 4**: Code Submissions
-- ⏳ **Sprint 5**: Comments
-- ⏳ **Sprint 6**: Review Workflow
-- ⏳ **Sprint 7**: Notifications & Stats
-- ⏳ **Sprint 8**: Middleware & Testing
+- ✅ **Sprint 5**: Comments
+- ✅ **Sprint 6**: Review Workflow
+- ✅ **Sprint 7**: Notifications & Stats
+- ✅ **Sprint 8**: Middleware & Testing
+
+## Testing
+
+See [TESTING.md](./TESTING.md) for comprehensive testing instructions, including:
+- Setup and configuration
+- API endpoint examples
+- WebSocket testing
+- Common issues and solutions
 
 ## License
 

@@ -9,11 +9,16 @@ import projectRoutes from './routes/projectRoutes';
 import submissionRoutes from './routes/submissionRoutes';
 import commentRoutes from './routes/commentRoutes';
 import reviewRoutes from './routes/reviewRoutes';
+import notificationRoutes from './routes/notificationRoutes';
+import statsRoutes from './routes/statsRoutes';
+import { initializeWebSocket } from './websocket/server';
+import { createServer } from 'http';
 
 dotenv.config();
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
+const server = createServer(app);
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +34,8 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/submissions', submissionRoutes);
 app.use('/api', commentRoutes);
 app.use('/api', reviewRoutes);
+app.use('/api', notificationRoutes);
+app.use('/api', statsRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
@@ -37,7 +44,9 @@ async function startServer() {
   try {
     await initDatabase();
     
-    app.listen(PORT, () => {
+    initializeWebSocket(server);
+    
+    server.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`);
       console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
     });
