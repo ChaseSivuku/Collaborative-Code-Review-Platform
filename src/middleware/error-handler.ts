@@ -7,9 +7,9 @@ export interface AppError extends Error {
 
 export const errorHandler = (
   err: AppError,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   const statusCode = err.statusCode || 500;
   const status = err.status || 'error';
@@ -23,7 +23,7 @@ export const errorHandler = (
 
 export const notFoundHandler = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): void => {
   const error: AppError = new Error(`Not Found - ${req.originalUrl}`);
